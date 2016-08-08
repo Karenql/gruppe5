@@ -1,0 +1,38 @@
+## ØVELSE ##
+library("rio")
+filepath = "https://raw.githubusercontent.com/kosukeimai/qss/master/INTRO/turnout.csv"
+df=import(filepath)
+
+#sumstats
+  summary(df)
+  names(df)
+  rownames(df)
+  View(df)
+
+#Lav en dataframe til forskellige turnoutratios
+turnout = data.frame(
+  TR_VAP = 100* df$total / df$VAP,
+  TR_VAPO = 100* df$total / (df$VAP + df$overseas),
+  TR_VEP = 100* df$total / df$VEP,
+  ANES = df$ANES
+)
+
+View(turnout)
+#lav en dataframe til afvigelser fra ANES
+diff = data.frame(
+  diff_VAP = turnout$TR_VAP - turnout$ANES,
+  diff_VAPO = turnout$TR_VAPO - turnout$ANES,
+  diff_VEP = turnout$TR_VEP - turnout$ANES
+)
+
+View(diff)
+#Lav en vektor med middelværdier af søjlerne i diff
+
+m=c(
+mean(diff$diff_VAP),
+mean(diff$diff_VAPO),
+mean(diff$diff_VEP)
+)
+
+#vis m
+m
