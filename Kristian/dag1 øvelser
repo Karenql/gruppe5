@@ -144,3 +144,4 @@ diff = data.frame(
 
 View(diff)
 summary(diff)
+mean(diff)
